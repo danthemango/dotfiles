@@ -1,7 +1,5 @@
 # dotfiles
 
----
-
 This project will serve as a *hopefully* simple set up script to get new systems going, and to
 keep old systems up to date.
 
