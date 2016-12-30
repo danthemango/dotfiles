@@ -172,6 +172,9 @@ keep
 
 " the same indent as the line you're currently on. Useful for READE, etc.
 set autoindent
+set si "smart indent
+set showmatch "shows matching bracket when highlighting ()
+set incsearch "While typing a search command, show where the pattern, as it was typed so far, matches
 
 " Stop certain movements from always going to the first character of a line.
 " While this behaviour deviates from that of Vi, it does what most users
@@ -181,6 +184,39 @@ set nostartofline
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
+
+" Save your backups to a less annoying place than the current directory.
+" If you have .vim-backup in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/backup or . if all else fails.
+if isdirectory($HOME . '/.vim/backup') == 0
+:silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+endif
+set backupdir-=.
+set backupdir+=.
+set backupdir-=~/
+set backupdir^=~/.vim/backup/
+set backupdir^=./.vim-backup/
+set backup
+
+" viminfo stores the the state of your previous editing session
+set viminfo+=n~/.vim/viminfo
+
+if exists("+undofile")
+" undofile - This allows you to use undos after exiting and restarting
+" This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+" :help undo-persistence
+" This is only present in 7.3+
+if isdirectory($HOME . '/.vim/undo') == 0
+:silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+endif
+set undodir=./.vim-undo//
+set undodir+=~/.vim/undo//
+set undofile
+endif
+set undolevels=10000 "number of undos possible
+"demark column 97
+set colorcolumn=97
+hi ColorColumn ctermbg=4
 
 " Indentation settings for using 2 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
@@ -202,4 +238,7 @@ map <F12> :!make run FILE=%:r
 
 " Cew colour coding
 au BufReadPost *.cew set syntax=perl
-"
+
+" turn off error and visual bells
+set noerrorbells 
+set vb t_vb=

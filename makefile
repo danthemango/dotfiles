@@ -168,6 +168,54 @@ brest-tmux:
 	cp ~/dotfiles-backup/tmux.conf ~/.tmux.conf
 	@true
 
+# this target allows for pulling the config files to enable population of this repository
+pull-all: pull-bash pull-elinks pull-htop pull-i3 pull-motd pull-urxvt pull-vim pull-zsh pull-zsh pull-tmux
+	@true
+
+pull-bash:
+	cp ~/.bashrc bash/bashrc 
+
+pull-elinks:
+	@[ -d elinks ] || mkdir elinks
+	cp  ~/.elinks/elinks.conf elinks/elinks.conf
+
+pull-htop:
+	@[ -d htop ] || mkdir -p htop
+	cp  ~/.config/htop/htoprc htop/htoprc
+
+pull-i3:
+	@[ -d i3 ] || mkdir i3
+	cp ~/.i3/config i3/config
+	cp ~/.i3/i3status.conf i3/i3status.conf
+
+pull-motd:
+	cp  ~/.motd motd/motd
+
+pull-urxvt:
+	@-[ -d urxvt/urxvt ] && rm -rf urxvt/urxvt
+	cp -r  ~/.urxvt urxvt/urxvt
+	cp  ~/.Xresources urxvt/Xresources
+
+pull-vim:
+	@-[ -d vim/vim ] && rm -rf vim/vim
+	cp -r  ~/.vim vim/vim
+	cp  ~/.vimrc vim/vimrc
+
+pull-zsh:
+	cp  ~/.zlogin zsh/zlogin
+	cp  ~/.zshaliases zsh/zshaliases
+	cp  ~/.zshenv zsh/zshenv
+	cp  ~/.zshfunctions zsh/zshfunctions
+	cp  ~/.zshgrml zsh/zshgrml
+	cp  ~/.zshrc zsh/zshrc
+
+pull-bin:
+	cp -r  ~/bin bin/
+
+pull-tmux:
+	@-[ -d tmux/tmux ] && rm -rf tmux/tmux
+	cp -r  ~/.tmux tmux/tmux
+	cp  ~/.tmux.conf tmux/tmux.conf
 
 diff-all: diff-bash diff-elinks diff-htop diff-i3 diff-motd diff-urxvt diff-vim diff-zsh diff-zsh
 	@true

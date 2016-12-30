@@ -1,10 +1,14 @@
 URxvt*scrollBar:	false
 URxvt*secondaryScreen: true
 URxvt*secondaryScroll: false
-URxvt*font:			xft:DejaVu Sans Mono for Powerline:size=13
+URxvt*font:			xft:Anonymous Pro:size=11
 URxvt*lineSpace:	0 
-URxvt*.letterSpace: -2
+URxvt*.letterSpace: 0
 
+! use ctrl-shift-v for pasting instead
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default, clipboard
 
 Xft.autohint:   0
 Xft.dpi:        96
@@ -116,7 +120,7 @@ URxvt.keysym.Control-Right:    \033[1;5C
 !extensions
 !URxvt.perl-ext-common: digital-clock
 
-URxvt.iso14755:		false
+!URxvt.iso14755:		false
 URxvt.iso14755_52:	false
 ! ROFI Color theme
 ! User: sushant
