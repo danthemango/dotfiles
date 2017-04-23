@@ -168,7 +168,7 @@ brest-tmux:
 	cp ~/dotfiles-backup/tmux.conf ~/.tmux.conf
 	@true
 
-# this target allows for pulling the config files to enable population of this repository
+# this target allows for pulling the config files to enable population of this repository (and updating the repository, for future travellers)
 pull-all: pull-bash pull-elinks pull-htop pull-i3 pull-motd pull-urxvt pull-vim pull-zsh pull-zsh pull-tmux
 	@true
 
@@ -197,8 +197,6 @@ pull-urxvt:
 	cp  ~/.Xresources urxvt/Xresources
 
 pull-vim:
-	@-[ -d vim/vim ] && rm -rf vim/vim
-	cp -r  ~/.vim vim/vim
 	cp  ~/.vimrc vim/vimrc
 
 pull-zsh:
