@@ -242,3 +242,5 @@ au BufReadPost *.cew set syntax=perl
 " turn off error and visual bells
 set noerrorbells 
 set vb t_vb=
+" eliminate the background color 
+hi Normal ctermbg=none

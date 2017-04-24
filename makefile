@@ -14,6 +14,7 @@ help:
 	@echo "Use diff-all to see what kind of changes will be happening!"
 	@echo "Use backup-all to create a dofile-backup folder and save your current configuration!"
 	@echo "Use backup-restore to replace your current configuration with the files in ~/dotfile-backup/"
+	@echo "Use pull-all to update this repository after trying out new changes"
 
 git-tmux-module:
 	git submodule update --init tmux/tmux/plugins/tpm

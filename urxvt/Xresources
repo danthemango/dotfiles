@@ -1,11 +1,12 @@
 URxvt*scrollBar:	false
 URxvt*secondaryScreen: true
 URxvt*secondaryScroll: false
+! NOTE: the font listed here must be installed
 URxvt*font:			xft:Anonymous Pro:size=11
 URxvt*lineSpace:	0 
 URxvt*.letterSpace: 0
 
-! use ctrl-shift-v for pasting instead
+! TODO get ctrl-shift-v to work for pasting
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
 URxvt.perl-ext-common: default, clipboard
@@ -102,7 +103,7 @@ URxvt*scrollWithBuffer:     false
 URxvt*mouseWheelScrollPage: false
 
 ! transparency
-URxvt*transparent:         false 
+URxvt*transparent:         true 
 URxvt*shading:              85
 URxvt*tintColor:			#272822
 

@@ -184,10 +184,9 @@ bar {
    }
 }
 
-
 # Startup Programs--
 
 # My background
-exec --no-startup-id feh --no-fehbg --bg-fill ~/.fehbg.jpg
+exec --no-startup-id feh --bg-fill --no-fehbg ~/.fehbg.jpg
 exec --no-startup-id xautolock -time 5 -locker '~/.i3/lock' &
 exec --no-startup-id xrdb -merge ~/.Xresources
