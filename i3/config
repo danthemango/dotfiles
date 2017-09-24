@@ -149,8 +149,8 @@ bindsym $mod+r mode "resize"
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
-
-
+bindsym Mod1+1 exec "setxkbmap dvorak"
+bindsym Mod1+2 exec "setxkbmap us"
 
 # color defines for zenburn styled i3
 set $bg     #2c2c2e
@@ -190,3 +190,42 @@ bar {
 exec --no-startup-id feh --bg-fill --no-fehbg ~/.fehbg.jpg
 exec --no-startup-id xautolock -time 5 -locker '~/.i3/lock' &
 exec --no-startup-id xrdb -merge ~/.Xresources
+
+# ## Manual management of external displays
+# taken from the archlinux wiki:
+# https://wiki.archlinux.org/index.php/i3#External_displays_manual_management
+set $mode_display Ext Screen (v) VGA ON, (h) HDMI ON, (x) VGA OFF, (y) HDMI OFF
+mode "$mode_display" {
+    bindsym v exec --no-startup-id xrandr --output VGA1 --auto --left-of LVDS1, mode "default"
+    bindsym h exec --no-startup-id xrandr --output HDMI1 --auto --left-of LVDS1, mode "default"
+    bindsym x exec --no-startup-id xrandr --output VGA1 --auto --off, mode "default"
+    bindsym y exec --no-startup-id xrandr --output HDMI1 --auto --off, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# suspend menu
+# provided with grace by guide42 on reddit: 
+# https://www.reddit.com/r/i3wm/comments/2yniv1/i3wm_and_power_management/
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (p) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Pause mode "$mode_system"
+
+# Declare here the shortcut to bring the display selection menu
+bindsym $mod+x mode "$mode_display"
+
+# move workspace to another monitor
+# TODO, still deciding on keybind
+# i3-msg move workspace to output left
