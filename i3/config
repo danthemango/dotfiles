@@ -25,7 +25,11 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# with xcwd, should open with current working folder (if applicable)
+bindsym $mod+Return exec i3-sensible-terminal -cd "`xcwd`"
+
+# start a pcmanfm window
+bindsym $mod+p exec pcmanfm "`xcwd`"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -61,6 +65,32 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+# focus on another output display (monitor)
+# Note: for individual windows, Mod+l/h will move windows between monitors
+bindsym $mod+Control+h focus output left
+bindsym $mod+Control+k focus output down
+bindsym $mod+Control+j focus output up
+bindsym $mod+Control+l focus output right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Control+Left focus output left
+bindsym $mod+Control+Down focus output down
+bindsym $mod+Control+Up focus output up
+bindsym $mod+Control+Right focus output right
+
+# move workspace to another monitor
+# Note: for individual windows, Mod+shift+l/h will move individual windows between monitors
+bindsym $mod+Control+Shift+h move workspace to output left
+bindsym $mod+Control+Shift+k move workspace to output down
+bindsym $mod+Control+Shift+j move workspace to output up
+bindsym $mod+Control+Shift+l move workspace to output right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Control+Shift+Left move workspace to output left
+bindsym $mod+Control+Shift+Down move workspace to output down
+bindsym $mod+Control+Shift+Up move workspace to output up
+bindsym $mod+Control+Shift+Right move workspace to output right
 
 # split in horizontal orientation
 bindsym $mod+b split h
@@ -118,7 +148,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+Control+L exec ~/.i3/lock
+#bindsym $mod+Control+l exec ~/.i3/lock
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -128,16 +158,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 2 px or 2 ppt
+        bindsym j resize grow height 2 px or 2 ppt
+        bindsym k resize shrink height 2 px or 2 ppt
+        bindsym l resize grow width 2 px or 2 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 2 px or 2 ppt
+        bindsym Down resize grow height 2 px or 2 ppt
+        bindsym Up resize shrink height 2 px or 2 ppt
+        bindsym Right resize grow width 2 px or 2 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -149,8 +179,8 @@ bindsym $mod+r mode "resize"
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
-bindsym Mod1+1 exec "setxkbmap dvorak"
-bindsym Mod1+2 exec "setxkbmap us"
+bindsym Mod1+1 exec "setxkbmap dvorak && xmodmap ~/.Xmodmap"
+bindsym Mod1+2 exec "setxkbmap us && xmodmap ~/.Xmodmap"
 
 # color defines for zenburn styled i3
 set $bg     #2c2c2e
@@ -185,25 +215,28 @@ bar {
 }
 
 # Startup Programs--
-
 # My background
 exec --no-startup-id feh --bg-fill --no-fehbg ~/.fehbg.jpg
 exec --no-startup-id xautolock -time 5 -locker '~/.i3/lock' &
 exec --no-startup-id xrdb -merge ~/.Xresources
+exec --no-startup-id xrandr | grep "VGA1 connected" && xrandr --output VGA1 --auto --left-of LVDS1
 
 # ## Manual management of external displays
 # taken from the archlinux wiki:
 # https://wiki.archlinux.org/index.php/i3#External_displays_manual_management
-set $mode_display Ext Screen (v) VGA ON, (h) HDMI ON, (x) VGA OFF, (y) HDMI OFF
+set $mode_display Ext Screen (l) VGA left (r) VGA right (f) VGA off (j) HDMA left (k) HDMA right (x) HDMA off
 mode "$mode_display" {
-    bindsym v exec --no-startup-id xrandr --output VGA1 --auto --left-of LVDS1, mode "default"
-    bindsym h exec --no-startup-id xrandr --output HDMI1 --auto --left-of LVDS1, mode "default"
-    bindsym x exec --no-startup-id xrandr --output VGA1 --auto --off, mode "default"
-    bindsym y exec --no-startup-id xrandr --output HDMI1 --auto --off, mode "default"
+    bindsym l exec --no-startup-id xrandr --output VGA1 --auto --left-of LVDS1, mode "default"
+    bindsym r exec --no-startup-id xrandr --output VGA1 --auto --right-of LVDS1, mode "default"
+    bindsym f exec --no-startup-id xrandr --output VGA1 --auto --off, mode "default"
+    bindsym j exec --no-startup-id xrandr --output HDMI1 --auto --left-of LVDS1, mode "default"
+    bindsym k exec --no-startup-id xrandr --output HDMI1 --auto --right-of LVDS1, mode "default"
+    bindsym x exec --no-startup-id xrandr --output HDMI1 --auto --off, mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+bindsym $mod+x mode "$mode_display"
 
 # suspend menu
 # provided with grace by guide42 on reddit: 
@@ -221,11 +254,4 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Pause mode "$mode_system"
-
-# Declare here the shortcut to bring the display selection menu
-bindsym $mod+x mode "$mode_display"
-
-# move workspace to another monitor
-# TODO, still deciding on keybind
-# i3-msg move workspace to output left
+bindsym $mod+q mode "$mode_system"
