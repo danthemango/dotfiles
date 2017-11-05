@@ -11,6 +11,10 @@
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# some applcations
+set $browser google-chrome-stable
+set $filemanager pcmanfm
+
 # use the super-key as the modifier button
 set $mod Mod4
 
@@ -30,10 +34,10 @@ floating_modifier $mod
 # start a terminal
 # with xcwd, should open with current working folder (if applicable)
 bindsym $mod+Return exec i3-sensible-terminal -cd "`xcwd`"
-# start a pcmanfm window
-bindsym $mod+p exec pcmanfm "`xcwd`"
+# start a filemanager window
+bindsym $mod+p exec $filemanager 
 # start a chrome window
-bindsym $mod+c exec google-chrome-stable
+bindsym $mod+c exec $browser
 # do custom command
 bindsym $mod+z exec bash ~/quickCommand.sh
 # bind printscreen button
@@ -187,7 +191,9 @@ bindsym XF86ScreenSaver exec i3lock
 # touchpad toggle, requires script from https://wiki.archlinux.org/index.php/Touchpad_Synaptics
 bindsym XF86TouchpadToggle exec bash /usr/local/bin/touchpad_toggle.sh
 # turn off the screen
-bindsym XF86Display xset dpms force off
+bindsym XF86Display exec xset dpms force off
+bindsym XF86Explorer exec $filemanager
+bindsym XF86HomePage exec $browser
 # bind keyboard layout switches
 bindsym Mod1+1 exec "setxkbmap dvorak && xmodmap ~/.Xmodmap"
 bindsym Mod1+2 exec "setxkbmap us && xmodmap ~/.Xmodmap"
