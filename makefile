@@ -6,15 +6,15 @@
 help:
 	@echo ""
 	@echo "WARNING: This will clober your current dotfiles!"
-	@echo "Use setup-all to get things going"
-	@echo "Use install-all to check dependencies"
-	@echo "Use configure-all to set up the dotfiles!"
-	@echo "Use configure-shell to set up server defaults"
-	@echo "Use configure-desktop to set up X windows stuff"
-	@echo "Use diff-all to see what kind of changes will be happening!"
-	@echo "Use backup-all to create a dofile-backup folder and save your current configuration!"
-	@echo "Use backup-restore to replace your current configuration with the files in ~/dotfile-backup/"
-	@echo "Use pull-all to update this repository after trying out new changes"
+	@echo "Use 'make setup-all' to get things going"
+	@echo "Use 'make install-all' to check dependencies"
+	@echo "Use 'make configure-all' to set up the dotfiles!"
+	@echo "Use 'make configure-shell' to set up server defaults"
+	@echo "Use 'make configure-desktop' to set up X windows stuff"
+	@echo "Use 'make diff-all' to see what kind of changes will be happening!"
+	@echo "Use 'make backup-all' to create a dofile-backup folder and save your current configuration!"
+	@echo "Use 'make backup-restore' to replace your current configuration with the files in ~/dotfile-backup/"
+	@echo "Use 'make pull-all' to update this repository after trying out new changes"
 
 git-tmux-module:
 	git submodule update --init tmux/tmux/plugins/tpm
